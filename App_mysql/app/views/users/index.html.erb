@@ -1,0 +1,44 @@
+
+
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Users" %>
+
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Password</th>
+      <th>Email</th>
+      <th>Programador</th>
+      <th>Birthday</th>
+      <th>Work Time</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <!-- Recomiendo NO mostrar contraseñas reales en producción.
+             Aquí se muestra enmascarada para pruebas: -->
+        <td><%= user.password.present? ? ('*' * [user.password.length, 8].min) : '' %></td>
+        <td><%= user.email %></td>
+        <td><%= user.programador %></td>
+        <td><%= user.birthday %></td>
+        <td><%= user.work_time %></td>
+        <td>
+          <%= link_to "Show", user_path(user) %> |
+          <%= link_to "Edit", edit_user_path(user) %> |
+          <%= link_to "Delete", user_path(user), method: :delete, data: { confirm: "¿Estás seguro?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to "New user", new_user_path %>
